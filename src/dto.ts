@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ZodSchema, ZodTypeDef } from './z'
+import { ZodOptional, ZodSchema, ZodTypeDef } from './z'
 
 export interface ZodDto<
   TOutput = any,
@@ -16,7 +16,11 @@ export function createZodDto<
   TOutput = any,
   TDef extends ZodTypeDef = ZodTypeDef,
   TInput = TOutput
->(schema: ZodSchema<TOutput, TDef, TInput>) {
+>(
+  schema:
+    | ZodSchema<TOutput, TDef, TInput>
+    | ZodOptional<ZodSchema<TOutput, TDef, TInput>>
+) {
   class AugmentedZodDto {
     public static isZodDto = true
     public static schema = schema
